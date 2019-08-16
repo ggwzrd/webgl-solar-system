@@ -120,7 +120,6 @@ document.addEventListener("mousewheel", _.throttle(moveCamera, 0.1));
 
 function init() {
   // camera
-
   clock = new THREE.Clock();
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000000);
   camera.position.z = zoom;
@@ -185,12 +184,12 @@ function init() {
   var size = renderer.getDrawingBufferSize( new THREE.Vector2() );
   var renderTarget = new THREE.WebGLMultisampleRenderTarget( size.width, size.height, parameters );
   var renderPass = new THREE.RenderPass( scene, camera );
-  var copyPass = new THREE.ShaderPass( THREE.CopyShader );
-  copyPass.renderToScreen = true;
+  // var copyPass = new THREE.ShaderPass( THREE.CopyShader );
+  // copyPass.renderToScreen = true;
   //
   composer = new THREE.EffectComposer( renderer, renderTarget );
   composer.addPass(renderPass);
-  composer.addPass(copyPass);
+  // composer.addPass(copyPass);
   group.object.rotation.y = 0;
   animate();
 }
@@ -204,7 +203,7 @@ function animate() {
   // camera.rotation.y += clock.getDelta() * 0.1;
   // group.object.rotation.y += clock.getDelta() * 0.1;
   // group.randomRotate();
-  composer.render();
+  renderer.render(scene, camera);
 }
 
 function handleGrab() {
